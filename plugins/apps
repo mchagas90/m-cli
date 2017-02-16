@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+help(){
+    cat<<__EOF__
+    usage: m app [ list | open | help ]
+
+    Examples:
+      m app list             # list apps
+
+      m app open [app_name]  # open app (app name must be the exact name from the list)
+                             # example: m open app "App Store.app" (just apps with space must be quoted)
+
+      m app close [app_name] # close app (app name must be the exact name from the list)
+                             # example: m close app Atom.app
+
+__EOF__
+}
+
+case $1 in
+    help)
+        help
+        ;;
+    list)
+        ls /Applications/ | grep ".app"
+        ;;
+    open)
+        open -a "$2"
+        ;;
+    close)
+        osascript -e "quit app \"${2}\""
+        ;;
+    *)
+        help
+        ;;
+esac
+
+# vim: ts=4 sw=4 softtabstop=4 expandtab

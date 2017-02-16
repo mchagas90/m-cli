@@ -6,11 +6,20 @@ help(){
     usage: m info [ help ]
 
     Examples:
-      m info        #  print macOS operating system version information
+      m info          #  print macOS product version information
+      m info basic    #  print macOs operating basic system version information
+      m info detailed #  print macOs operating detailed system version information
+
 __EOF__
 }
 
 case $1 in
+    detailed)
+        system_profiler -detailLevel full SPSoftwareDataType
+        ;;
+    basic)
+        system_profiler -detailLevel mini SPSoftwareDataType
+        ;;
     help)
         help
         ;;
